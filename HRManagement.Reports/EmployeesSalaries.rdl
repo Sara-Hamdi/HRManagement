@@ -9,35 +9,44 @@
       <am:Name>SSDTRS</am:Name>
       <am:Version>17.10.35122.118</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2025-04-19T21:01:42.2794990Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2025-04-24T21:55:32.2108165Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="HRmanagment">
+      <DataSourceReference>HRManagement</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>407cc71c-1825-44ec-98d4-b26521c9b440</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
   <DataSets>
     <DataSet Name="GetEmployeesSalaries">
-      <SharedDataSet>
-        <SharedDataSetReference>GetEmployeesSalaries</SharedDataSetReference>
+      <Query>
+        <DataSourceName>HRmanagment</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@DepartmentId">
             <Value>=Parameters!DepartmentId.Value</Value>
           </QueryParameter>
         </QueryParameters>
-      </SharedDataSet>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>GetEmployeesSalaries</CommandText>
+      </Query>
       <Fields>
         <Field Name="Name">
           <DataField>Name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="National_Id">
-          <DataField>National_Id</DataField>
+          <DataField>National Id</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Gross_Salary">
-          <DataField>Gross_Salary</DataField>
+          <DataField>Gross Salary</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="Net_Salary">
-          <DataField>Net_Salary</DataField>
+          <DataField>Net Salary</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
       </Fields>
@@ -516,6 +525,7 @@
   <ReportParameters>
     <ReportParameter Name="DepartmentId">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
       <Prompt>Department Id</Prompt>
     </ReportParameter>
   </ReportParameters>

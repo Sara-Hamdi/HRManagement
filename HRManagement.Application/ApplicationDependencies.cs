@@ -3,6 +3,8 @@ using FluentValidation.AspNetCore;
 using HRManagement.Application.Employees;
 using HRManagement.Application.Employees.Interfaces;
 using HRManagement.Application.Employees.Queries;
+using HRManagement.Application.Reports;
+using HRManagement.Application.Reports.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -19,6 +21,7 @@ namespace HRManagement.Application
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+            services.AddTransient<IReportAppService, ReportAppService>();
             return services;
 
         }
