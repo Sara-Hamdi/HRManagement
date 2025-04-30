@@ -1,4 +1,6 @@
-﻿namespace HRManagement.Domain.Aggregates.EmployeesAggregates
+﻿using HRManagement.Domain.Shared.Exceptions;
+
+namespace HRManagement.Domain.Aggregates.EmployeesAggregates
 {
     public class EmployeeManager
     {
@@ -35,6 +37,10 @@
         public async Task<Guid> UpdateEmployeeAsync(Employee employee)
         {
             var existingEmployee = await _employeeRepository.GetEmployeeByIdAsync(employee.Id);
+            if (existingEmployee == null)
+            {
+                throw new EntityNotFoundException(nameof(Employee), employee.Id);
+            }
             existingEmployee.Update(employee.FirstName, employee.LastName, employee.DepartmentId, employee.NetSalary, employee.PhoneNumber, employee.PositionId, employee.GrossSalary, employee.Email);
             if (existingEmployee.Address != null)
             {
@@ -52,6 +58,15 @@
             }
             await _employeeRepository.UpdateEmployeeAsync(existingEmployee);
             return employee.Id;
+        }
+        public async Task<Guid> DeleteEmployeeAsync(Guid id)
+        {
+            var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
+            if (employee == null)
+                throw new EntityNotFoundException(nameof(Employee), id);
+            await _employeeRepository.DeleteEmployeeAsync(employee);
+            return employee.Id;
+
         }
     }
 }

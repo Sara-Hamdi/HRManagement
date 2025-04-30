@@ -1,8 +1,13 @@
+using HRManagement.API.CustomMiddlewares;
+using HRManagement.API.Localization;
 using HRManagement.Application;
 using HRManagement.Domain;
 using HRManagement.Infrastructure;
 using HRManagement.Infrastructure.Context;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
+using System.Globalization;
 
 namespace HRManagement.API
 {
@@ -20,6 +25,19 @@ namespace HRManagement.API
             builder.Services.AddInfraStructureDependencies();
             builder.Services.AddApplicationDependencies();
             builder.Services.AddControllers();
+            builder.Services.AddLocalization();
+            builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+            builder.Services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en"),
+                    new CultureInfo("ar"),
+                };
+                options.DefaultRequestCulture = new RequestCulture(culture: supportedCultures[0], uiCulture: supportedCultures[0]);
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
             builder.Services.AddDomainDependencies();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -35,6 +53,14 @@ namespace HRManagement.API
             }
 
             app.UseHttpsRedirection();
+            var supportedCultures = new[] { "en", "ar" };
+            var localizationOptions = new RequestLocalizationOptions()
+                .AddSupportedCultures(supportedCultures)
+                .SetDefaultCulture(supportedCultures[0])
+                .AddSupportedUICultures(supportedCultures);
+
+            app.UseRequestLocalization(localizationOptions);
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseAuthorization();
 
@@ -42,6 +68,7 @@ namespace HRManagement.API
             app.MapControllers();
 
             app.Run();
+
         }
     }
 }

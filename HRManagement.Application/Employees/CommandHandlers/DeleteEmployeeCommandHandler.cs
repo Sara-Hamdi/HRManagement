@@ -1,26 +1,20 @@
-﻿using HRManagement.Application.Baeses;
-using HRManagement.Application.Employees.Dtos.RequestDtos;
+﻿using HRManagement.Application.Employees.Dtos.RequestDtos;
 using HRManagement.Domain.Aggregates.EmployeesAggregates;
 using MediatR;
 
 namespace HRManagement.Application.Employees.CommandHandlers
 {
-    public class DeleteEmployeeCommandHandler : ResponseHandler, IRequestHandler<DeleteEmployeeRequestDto, Response<Guid>>
+    public class DeleteEmployeeCommandHandler : IRequestHandler<DeleteEmployeeRequestDto, Guid>
     {
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly EmployeeManager _employeeManager;
 
-        public DeleteEmployeeCommandHandler(IEmployeeRepository employeeRepository)
+        public DeleteEmployeeCommandHandler(EmployeeManager employeeManager)
         {
-            _employeeRepository = employeeRepository;
+            _employeeManager = employeeManager;
         }
-        public async Task<Baeses.Response<Guid>> Handle(DeleteEmployeeRequestDto request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(DeleteEmployeeRequestDto request, CancellationToken cancellationToken)
         {
-            var existingEmployee = await _employeeRepository.GetEmployeeByIdAsync(request.Id);
-            if (existingEmployee == null)
-            {
-                return NotFound<Guid>($"cannot find an employee with id {request.Id}");
-            }
-            return Success<Guid>(await _employeeRepository.DeleteEmployeeAsync(existingEmployee));
+            return await _employeeManager.DeleteEmployeeAsync(request.Id);
 
         }
     }

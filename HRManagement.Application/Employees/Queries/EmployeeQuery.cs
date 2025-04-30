@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HRManagement.Application.Baeses;
+using HRManagement.Application.Employees.Dtos.RequestDtos;
 using HRManagement.Application.Employees.Dtos.ResponseDtos;
 using HRManagement.Application.Employees.Interfaces;
 using HRManagement.Domain.Aggregates.EmployeesAggregates;
@@ -7,7 +8,7 @@ using HRManagement.Domain.ViewModels;
 
 namespace HRManagement.Application.Employees.Queries
 {
-    public class EmployeeQuery : ResponseHandler, IEmployeeQuery
+    public class EmployeeQuery : IEmployeeQuery
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IMapper _mapper;
@@ -17,20 +18,24 @@ namespace HRManagement.Application.Employees.Queries
             _mapper = mapper;
         }
 
-        public async Task<Response<EmployeeResponseDto>> GetEmployeeByIdAsync(Guid id)
+        public async Task<EmployeeResponseDto> GetEmployeeByIdAsync(Guid id)
         {
             var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
-            var result = _mapper.Map<Employee, EmployeeResponseDto>(employee);
-            if (result == null) return NotFound<EmployeeResponseDto>($"cannot find employee with id {id}");
-            return Success(result);
+            return _mapper.Map<Employee, EmployeeResponseDto>(employee);
+
         }
 
-        public async Task<Response<List<EmployeeResponseDto>>> GetEmployeesAsync()
+        public async Task<List<EmployeeResponseDto>> GetEmployeesAsync(Guid? departmentId = null)
         {
-            var employees = await _employeeRepository.GetEmployeesAsync();
-            var result = _mapper.Map<List<EmployeeViewModel>, List<EmployeeResponseDto>>(employees);
+            var employees = await _employeeRepository.GetEmployeesAsync(departmentId);
+            return _mapper.Map<List<EmployeeViewModel>, List<EmployeeResponseDto>>(employees);
+        }
 
-            return Success(result);
+        public async Task<PaginatedResult<EmployeeResponseDto>> GetEmployeesPaginatedAsync(EmployeeQueryDto dto)
+        {
+            var result = await _employeeRepository.GetEmployeesPaginatedAsync(dto.PageSize, dto.PageNumber, dto.SortingDirection, dto.DepartmentId, dto.SearchKey);
+            var employees = _mapper.Map<List<EmployeeViewModel>, List<EmployeeResponseDto>>(result.employees);
+            return new PaginatedResult<EmployeeResponseDto>(employees, result.totalCount);
 
         }
     }

@@ -16,18 +16,25 @@ namespace HRManagement.API.Controllers
             _employeeService = employeeService;
         }
         [HttpGet]
-        public async Task<Response<List<EmployeeResponseDto>>> GetEmployeesAsync()
+        public async Task<List<EmployeeResponseDto>> GetEmployeesAsync([FromQuery] Guid? departmentId)
         {
-            return await _employeeService.GetEmployeesAsync();
+            return await _employeeService.GetEmployeesAsync(departmentId);
+
+        }
+        [HttpGet]
+        [Route("paginated")]
+        public async Task<PaginatedResult<EmployeeResponseDto>> GetEmployeesPaginatedAsync([FromQuery] EmployeeQueryDto request)
+        {
+            return await _employeeService.GetEmployeesPaginatedAsync(request);
 
         }
         [HttpGet("{id}")]
-        public async Task<Response<EmployeeResponseDto>> GetEmployeeByIdAsync(Guid id)
+        public async Task<EmployeeResponseDto> GetEmployeeByIdAsync([FromRoute] Guid id)
         {
             return await _employeeService.GetEmployeeByIdAsync(id);
         }
         [HttpPost]
-        public async Task<Response<Guid>> CreateEmployeeAsync([FromBody] CreateEmployeeRequestDto request)
+        public async Task<Guid> CreateEmployeeAsync([FromBody] CreateEmployeeRequestDto request)
         {
 
             return await _employeeService.CreateEmployee(request);
@@ -35,15 +42,14 @@ namespace HRManagement.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<Response<Guid>> UpdateEmployeeAsync([FromRoute] Guid id, [FromBody] UpdateEmployeeRequestDto request)
+        public async Task<Guid> UpdateEmployeeAsync([FromRoute] Guid id, [FromBody] UpdateEmployeeRequestDto request)
         {
             request.Id = id;
             return await _employeeService.UpdateEmployee(request);
         }
         [HttpDelete("{id}")]
-        public async Task<Response<Guid>> DeleteEmployeeAsync(Guid id)
+        public async Task<Guid> DeleteEmployeeAsync(Guid id)
         {
-
             return await _employeeService.DeleteEmployeeAsync(new DeleteEmployeeRequestDto { Id = id });
         }
     }

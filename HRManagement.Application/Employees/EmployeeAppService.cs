@@ -15,27 +15,31 @@ namespace HRManagement.Application.Employees
             _employeeQuery = employeeQuery;
             _mediator = mediator;
         }
-        public async Task<Response<List<EmployeeResponseDto>>> GetEmployeesAsync()
+        public async Task<List<EmployeeResponseDto>> GetEmployeesAsync(Guid? departmentId = null)
         {
-            return await _employeeQuery.GetEmployeesAsync();
+            return await _employeeQuery.GetEmployeesAsync(departmentId);
         }
+        public async Task<PaginatedResult<EmployeeResponseDto>> GetEmployeesPaginatedAsync(EmployeeQueryDto request)
+        {
+            return await _employeeQuery.GetEmployeesPaginatedAsync(request);
 
-        public async Task<Response<EmployeeResponseDto>> GetEmployeeByIdAsync(Guid id)
+        }
+        public async Task<EmployeeResponseDto> GetEmployeeByIdAsync(Guid id)
         {
             return await _employeeQuery.GetEmployeeByIdAsync(id);
         }
 
-        public async Task<Response<Guid>> CreateEmployee(CreateEmployeeRequestDto request)
+        public async Task<Guid> CreateEmployee(CreateEmployeeRequestDto request)
         {
             return await _mediator.Send(request);
         }
 
-        public async Task<Response<Guid>> UpdateEmployee(UpdateEmployeeRequestDto request)
+        public async Task<Guid> UpdateEmployee(UpdateEmployeeRequestDto request)
         {
             return await _mediator.Send(request);
         }
 
-        public Task<Response<Guid>> DeleteEmployeeAsync(DeleteEmployeeRequestDto request)
+        public Task<Guid> DeleteEmployeeAsync(DeleteEmployeeRequestDto request)
         {
             return _mediator.Send(request);
         }
