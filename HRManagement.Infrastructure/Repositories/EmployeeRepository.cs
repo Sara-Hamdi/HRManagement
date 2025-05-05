@@ -20,13 +20,14 @@ namespace HRManagement.Infrastructure.Repositories
                         join department in _dbContext.Departments.AsNoTracking() on employee.DepartmentId equals department.Id
                         join position in _dbContext.Positions.AsNoTracking() on employee.PositionId equals position.Id
                         join address in _dbContext.Addresses.AsNoTracking() on employee.AddressId equals address.Id
+                        join user in _dbContext.Users on employee.UserId.ToString() equals user.Id
                         where departmentId == null || employee.DepartmentId == departmentId
                         select new EmployeeViewModel
                         {
-                            FullName = employee.FullName!,
+                            FullName = user.FullName!,
                             NetSalary = employee.NetSalary!,
                             GrossSalary = employee.GrossSalary!,
-                            PhoneNumber = employee.PhoneNumber!,
+                            PhoneNumber = user.PhoneNumber!,
                             Department = department.NameEn,
                             Position = position.NameEn,
                             Address = new AddressViewModel
@@ -47,7 +48,7 @@ namespace HRManagement.Infrastructure.Repositories
                         join address in _dbContext.Addresses.AsNoTracking() on employee.AddressId equals address.Id
                         where employee.Id == id
                         select employee;
-            return await query.FirstOrDefaultAsync() ?? throw new EntityNotFoundException(nameof(Employee), id);
+            return await query.FirstOrDefaultAsync() ?? throw new EntityNotFoundException(id, nameof(Employee));
         }
         public async Task<(int totalCount, List<EmployeeViewModel> employees)> GetEmployeesPaginatedAsync(int pageSize, int pageNumber, SortingDirection? sortingDirection, Guid? departmentId = null, string? searchKey = null)
         {
@@ -55,13 +56,14 @@ namespace HRManagement.Infrastructure.Repositories
                         join department in _dbContext.Departments.AsNoTracking() on employee.DepartmentId equals department.Id
                         join position in _dbContext.Positions.AsNoTracking() on employee.PositionId equals position.Id
                         join address in _dbContext.Addresses.AsNoTracking() on employee.AddressId equals address.Id
+                        join user in _dbContext.Users on employee.UserId.ToString() equals user.Id
                         where departmentId == null || departmentId == employee.DepartmentId
                         select new EmployeeViewModel
                         {
-                            FullName = employee.FullName!,
+                            FullName = user.FullName!,
                             NetSalary = employee.NetSalary!,
                             GrossSalary = employee.GrossSalary!,
-                            PhoneNumber = employee.PhoneNumber!,
+                            PhoneNumber = user.PhoneNumber!,
                             Department = department.NameEn,
                             Position = position.NameEn,
                             Address = new AddressViewModel

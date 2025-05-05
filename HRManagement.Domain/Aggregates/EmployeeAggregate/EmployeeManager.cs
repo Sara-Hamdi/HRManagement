@@ -17,17 +17,8 @@ namespace HRManagement.Domain.Aggregates.EmployeesAggregates
         }
         public async Task<Guid> CreateEmployeeAsync(Employee employee)
         {
-            Employee newEmployee = new Employee(
-                firstName: employee.FirstName,
-                lastName: employee.LastName,
-                phoneNumber: employee.PhoneNumber,
-                departmentId: employee.DepartmentId,
-                positionId: employee.PositionId,
-                email: employee.Email,
-                nationalId: employee.NationalId,
-                grossSalary: employee.GrossSalary,
-                netSalary: employee.NetSalary
-                );
+            Employee newEmployee = new Employee("", employee.DepartmentId, employee.NetSalary, employee.GrossSalary, employee.PositionId, employee.NationalId);
+
             if (employee.Address != null)
             {
                 newEmployee.AddAddress(employee.Address.City, employee.Address.Region, employee.Address.Notes);
@@ -39,9 +30,9 @@ namespace HRManagement.Domain.Aggregates.EmployeesAggregates
             var existingEmployee = await _employeeRepository.GetEmployeeByIdAsync(employee.Id);
             if (existingEmployee == null)
             {
-                throw new EntityNotFoundException(nameof(Employee), employee.Id);
+                throw new EntityNotFoundException(employee.Id, nameof(Employee));
             }
-            existingEmployee.Update(employee.FirstName, employee.LastName, employee.DepartmentId, employee.NetSalary, employee.PhoneNumber, employee.PositionId, employee.GrossSalary, employee.Email);
+            existingEmployee.Update(employee.DepartmentId, employee.NetSalary, employee.PositionId, employee.GrossSalary);
             if (existingEmployee.Address != null)
             {
                 if (employee.Address != null)
@@ -63,7 +54,7 @@ namespace HRManagement.Domain.Aggregates.EmployeesAggregates
         {
             var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
             if (employee == null)
-                throw new EntityNotFoundException(nameof(Employee), id);
+                throw new EntityNotFoundException(id, nameof(Employee));
             await _employeeRepository.DeleteEmployeeAsync(employee);
             return employee.Id;
 

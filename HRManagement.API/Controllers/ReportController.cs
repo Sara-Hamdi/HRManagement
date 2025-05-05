@@ -14,7 +14,7 @@ namespace HRManagement.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetEmployeesSalaries([FromQuery] Guid departmentId)
+        public async Task<IActionResult> GetEmployeesSalaries([FromQuery] Guid? departmentId)
         {
 
             var report = await _reportAppService.ExportEmployeesSalaries(departmentId);

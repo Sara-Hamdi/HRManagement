@@ -43,7 +43,7 @@ namespace HRManagement.API.CustomMiddlewares
                 var result = new
                 {
                     code = EntityNotFoundException.Code,
-                    message = ex.Message,
+                    message = _localizer[Constants.ErrorCodes.EntityNotFound, [ex.EntityName, ex.Id]],
 
                 };
 

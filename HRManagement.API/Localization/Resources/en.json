@@ -1,7 +1,9 @@
 {
   "texts": {
     "HR:001": "Internal Server Error ",
-    "HR:002": "Employee already exists "
+    "HR:002": "Employee already exists ",
+    "HR:404":  "cannot find an entity {0} with Id = {1}"
+
 
   }
 

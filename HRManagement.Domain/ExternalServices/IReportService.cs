@@ -1,4 +1,4 @@
-﻿namespace HRManagement.Domain.Services
+﻿namespace HRManagement.Domain.ExternalServices
 {
     public interface IReportService
     {

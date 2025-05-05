@@ -1,15 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HRManagement.Domain.Shared;
+using System.ComponentModel.DataAnnotations;
 
 namespace HRManagement.Domain.Aggregates.EmployeesAggregates
 {
     public class Address
     {
         public Guid Id { get; private set; }
-        [StringLength(100)]
+        [StringLength(Constants.StringLengths.SmallLength)]
         public string Region { get; private set; }
-        [StringLength(100)]
+        [StringLength(Constants.StringLengths.SmallLength)]
         public string City { get; private set; }
-        [StringLength(100)]
+        [StringLength(Constants.StringLengths.SmallLength)]
         public string? Notes { get; private set; }
 
         public Address(string city, string region, string? notes = null)

@@ -2,11 +2,13 @@
 {
     public class EntityNotFoundException : Exception
     {
-        public const string Code = "";
+        public const string Code = Constants.ErrorCodes.EntityNotFound;
         public Guid Id { get; set; }
-        public EntityNotFoundException(string entityName, Guid id) : base($"Cannot find an entity {entityName} with Id = {id}")
+        public string EntityName { get; set; }
+        public EntityNotFoundException(Guid id, string entityName)
         {
-
+            Id = id;
+            EntityName = entityName;
         }
     }
 }

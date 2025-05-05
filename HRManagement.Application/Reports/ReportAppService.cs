@@ -1,5 +1,5 @@
 ﻿using HRManagement.Application.Reports.Interfaces;
-using HRManagement.Domain.Services;
+using HRManagement.Domain.ExternalServices;
 
 namespace HRManagement.Application.Reports
 {
@@ -11,7 +11,7 @@ namespace HRManagement.Application.Reports
         {
             _reportService = reportService;
         }
-        public async Task<byte[]> ExportEmployeesSalaries(Guid departmentId)
+        public async Task<byte[]> ExportEmployeesSalaries(Guid? departmentId = null)
         {
             string reportName = "EmployeesSalaries";
             Dictionary<String, string> paramsList = new()

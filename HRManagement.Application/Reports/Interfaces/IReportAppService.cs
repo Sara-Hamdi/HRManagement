@@ -2,7 +2,7 @@
 {
     public interface IReportAppService
     {
-        Task<byte[]> ExportEmployeesSalaries(Guid departmentId);
+        Task<byte[]> ExportEmployeesSalaries(Guid? departmentId = null);
 
     }
 }

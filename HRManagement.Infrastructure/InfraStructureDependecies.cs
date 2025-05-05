@@ -1,7 +1,10 @@
 ﻿using HRManagement.Domain.Aggregates.EmployeesAggregates;
-using HRManagement.Domain.Services;
+using HRManagement.Domain.Aggregates.Identity;
+using HRManagement.Domain.ExternalServices;
+using HRManagement.ExternalServices.ReportService;
+using HRManagement.Infrastructure.Context;
 using HRManagement.Infrastructure.Repositories;
-using HRManagement.Infrastructure.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HRManagement.Infrastructure
@@ -12,6 +15,13 @@ namespace HRManagement.Infrastructure
         {
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IReportService, ReportService>();
+            //identity service
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = true;
+                options.Password.RequiredLength = 10;
+
+            }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             return services;
 
         }

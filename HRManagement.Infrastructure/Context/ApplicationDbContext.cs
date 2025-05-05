@@ -1,19 +1,18 @@
 ﻿using HRManagement.Domain.Aggregates.Departments;
 using HRManagement.Domain.Aggregates.EmployeesAggregates;
+using HRManagement.Domain.Aggregates.Identity;
 using HRManagement.Domain.Aggregates.Projects;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HRManagement.Infrastructure.Context
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
+        public ApplicationDbContext()
+        {
+
+        }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
@@ -24,14 +23,15 @@ namespace HRManagement.Infrastructure.Context
         public DbSet<ProjectEmployee> ProjectEmployees { get; set; }
         public DbSet<Position> Positions { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.Entity<Address>().ToTable(nameof(Address));
-            modelBuilder.Entity<Employee>().ToTable(nameof(Employee));
-            modelBuilder.Entity<Project>().ToTable(nameof(Project));
-            modelBuilder.Entity<Department>().ToTable(nameof(Department));
-            modelBuilder.Entity<ProjectEmployee>().ToTable(nameof(ProjectEmployee));
-            modelBuilder.Entity<Position>().ToTable(nameof(Position));
+            base.OnModelCreating(builder);
+            builder.Entity<Address>().ToTable(nameof(Address));
+            builder.Entity<Employee>().ToTable(nameof(Employee));
+            builder.Entity<Project>().ToTable(nameof(Project));
+            builder.Entity<Department>().ToTable(nameof(Department));
+            builder.Entity<ProjectEmployee>().ToTable(nameof(ProjectEmployee));
+            builder.Entity<Position>().ToTable(nameof(Position));
         }
 
 

@@ -3,7 +3,7 @@
   "version": "8.0.0",
   "options": {
     "inputs": [
-      "http:servername/reportserver/ReportExecution2005.asmx"
+      "http:servernamme/reportserver/ReportExecution2005.asmx"
     ],
     "outputFile": "Reference.cs",
     "targetFramework": "net8.0",

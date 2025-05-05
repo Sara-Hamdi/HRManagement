@@ -1,10 +1,10 @@
-﻿using HRManagement.Domain.Services;
+﻿using HRManagement.Domain.ExternalServices;
 using Microsoft.Extensions.Configuration;
 using System.Net;
 using System.Security.Principal;
 using System.ServiceModel;
 
-namespace HRManagement.Infrastructure.Services
+namespace HRManagement.ExternalServices.ReportService
 {
     public class ReportService : IReportService
 
