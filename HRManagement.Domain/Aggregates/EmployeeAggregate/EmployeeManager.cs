@@ -9,15 +9,15 @@ namespace HRManagement.Domain.Aggregates.EmployeesAggregates
         {
             _employeeRepository = employeeRepository;
         }
-        public async Task<bool> CheckIfEmployeeExist(string nationalId)
+        public async Task<Employee?> CheckIfEmployeeExist(string nationalId)
         {
             var employee = await _employeeRepository.GetEmployeeByNationalId(nationalId);
-            return employee != null;
+            return employee;
 
         }
         public async Task<Guid> CreateEmployeeAsync(Employee employee)
         {
-            Employee newEmployee = new Employee("", employee.DepartmentId, employee.NetSalary, employee.GrossSalary, employee.PositionId, employee.NationalId);
+            Employee newEmployee = new Employee(employee.UserId, employee.DepartmentId, employee.NetSalary, employee.GrossSalary, employee.PositionId, employee.NationalId);
 
             if (employee.Address != null)
             {

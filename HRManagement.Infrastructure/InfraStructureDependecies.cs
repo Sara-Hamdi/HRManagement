@@ -1,5 +1,5 @@
 ﻿using HRManagement.Domain.Aggregates.EmployeesAggregates;
-using HRManagement.Domain.Aggregates.Identity;
+using HRManagement.Domain.Aggregates.UserAggregate;
 using HRManagement.Domain.ExternalServices;
 using HRManagement.ExternalServices.ReportService;
 using HRManagement.Infrastructure.Context;
@@ -20,6 +20,7 @@ namespace HRManagement.Infrastructure
             {
                 options.SignIn.RequireConfirmedEmail = true;
                 options.Password.RequiredLength = 10;
+                options.User.RequireUniqueEmail = true;
 
             }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             return services;

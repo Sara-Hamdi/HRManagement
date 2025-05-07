@@ -8,12 +8,6 @@ namespace HRManagement.Application.Employees.Validators
 
         public CreateEmployeeValidator()
         {
-            RuleFor(c => c.FirstName).NotEmpty().MaximumLength(100);
-            RuleFor(c => c.LastName).NotEmpty().MaximumLength(100);
-            RuleFor(c => c.Email).NotEmpty()
-                .WithMessage("Email is required");
-            RuleFor(c => c.PhoneNumber).NotEmpty()
-                .WithMessage("Phone number is required");
             RuleFor(c => c.Address)
            .NotNull()
            .WithMessage("Address is required")

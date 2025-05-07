@@ -1,5 +1,5 @@
 ﻿using HRManagement.Domain.Aggregates.Departments;
-using HRManagement.Domain.Aggregates.Identity;
+using HRManagement.Domain.Aggregates.UserAggregate;
 
 namespace HRManagement.Domain.Aggregates.EmployeesAggregates
 {

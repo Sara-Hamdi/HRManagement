@@ -24,4 +24,8 @@
     <ProjectReference Include="..\HRManagement.ExternalServices\HRManagement.ExternalServices.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="EntityConfiguration\" />
+  </ItemGroup>
+
 </Project>

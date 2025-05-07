@@ -2,7 +2,7 @@
 <RptDataSource xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="HRManagement">
   <ConnectionProperties>
     <Extension>SQL</Extension>
-    <ConnectString>Data Source=.;Initial Catalog=HRManagement;TrustServerCertificate=True</ConnectString>
+    <ConnectString>Data Source=LPASUU0008\SQLEXPRESS;Initial Catalog=HRManagement;TrustServerCertificate=True</ConnectString>
     <IntegratedSecurity>true</IntegratedSecurity>
   </ConnectionProperties>
   <DataSourceID>eff04977-9160-498f-9648-438b4f22f959</DataSourceID>

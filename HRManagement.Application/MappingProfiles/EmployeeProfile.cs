@@ -20,6 +20,7 @@ namespace HRManagement.Application.MappingProfiles
             CreateMap<CreateEmployeeRequestDto, Employee>();
 
             CreateMap<UpdateEmployeeRequestDto, Employee>();
+
         }
     }
 }

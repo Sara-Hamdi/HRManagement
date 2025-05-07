@@ -21,7 +21,8 @@ namespace HRManagement.Application.Employees.CommandHandlers
         public async Task<Guid> Handle(CreateEmployeeRequestDto request, CancellationToken cancellationToken)
         {
             var employee = _mapper.Map<CreateEmployeeRequestDto, Employee>(request);
-            if (await _employeeManager.CheckIfEmployeeExist(request.NationalId))
+
+            if (await _employeeManager.CheckIfEmployeeExist(request.NationalId!) != null)
             {
                 throw new BusinessException(Constants.ErrorCodes.EmployeeAlreadyExists);
             }

@@ -59,7 +59,7 @@ namespace HRManagement.API.CustomMiddlewares
                 var result = new
                 {
                     code = Constants.ErrorCodes.InternalServerError,
-                    message = _localizer[Constants.ErrorCodes.InternalServerError]
+                    message = _localizer[Constants.ErrorCodes.InternalServerError].Value
                 };
 
                 await httpContext.Response.WriteAsJsonAsync(result);
