@@ -13,5 +13,6 @@ namespace HRManagement.Application.Employees.Interfaces
         Task<Guid> UpdateEmployee(UpdateEmployeeRequestDto request);
         Task<Guid> DeleteEmployeeAsync(DeleteEmployeeRequestDto request);
 
+
     }
 }

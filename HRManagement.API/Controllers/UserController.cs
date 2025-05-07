@@ -17,10 +17,16 @@ namespace HRManagement.API.Controllers
         }
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Admin)]
-
         public async Task<IActionResult> RegisterUserAsync([FromBody] RegisterUserRequestDto request)
         {
             await _userAppService.RegisterUserAsync(request);
+            return Ok();
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUserInfoAsync(string id, [FromBody] UpdateUserInfoRequestDto request)
+        {
+            request.UserId = id;
+            await _userAppService.UpdateUserInfo(request);
             return Ok();
         }
     }

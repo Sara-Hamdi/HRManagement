@@ -15,5 +15,10 @@ namespace HRManagement.Application.Users
         {
             await _mediator.Send(request);
         }
+
+        public async Task UpdateUserInfo(UpdateUserInfoRequestDto request)
+        {
+            await _mediator.Send(request);
+        }
     }
 }

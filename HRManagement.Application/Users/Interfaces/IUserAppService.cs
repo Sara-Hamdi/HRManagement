@@ -5,5 +5,6 @@ namespace HRManagement.Application.Users.Interfaces
     public interface IUserAppService
     {
         Task RegisterUserAsync(RegisterUserRequestDto request);
+        Task UpdateUserInfo(UpdateUserInfoRequestDto request);
     }
 }

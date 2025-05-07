@@ -36,7 +36,16 @@ namespace HRManagement.Domain.Aggregates.UserAggregate
         {
             FullName = FirstName + " " + LastName;
         }
-
+        public void Update(string? firstName = null, string? lastName = null, string? email = null, string? phoneNumber = null)
+        {
+            FirstName = firstName ?? FirstName;
+            LastName = lastName ?? LastName;
+            Email = email ?? Email;
+            UserName = email ?? Email;
+            PhoneNumber = phoneNumber ?? PhoneNumber;
+            LastUpdateDate = DateTime.UtcNow;
+            SetFullName();
+        }
 
     }
 }
