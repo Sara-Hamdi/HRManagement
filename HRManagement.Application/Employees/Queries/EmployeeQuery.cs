@@ -20,8 +20,8 @@ namespace HRManagement.Application.Employees.Queries
 
         public async Task<EmployeeResponseDto> GetEmployeeByIdAsync(Guid id)
         {
-            var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
-            return _mapper.Map<Employee, EmployeeResponseDto>(employee);
+            var employee = await _employeeRepository.GetEmployeeWithDetailsAsync(id);
+            return _mapper.Map<EmployeeViewModel, EmployeeResponseDto>(employee);
 
         }
 

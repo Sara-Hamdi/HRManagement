@@ -40,14 +40,34 @@ namespace HRManagement.Infrastructure.Repositories
             return await query.ToListAsync();
         }
 
-        public async Task<Employee> GetEmployeeByIdAsync(Guid id)
+        public async Task<Employee?> GetEmployeeByIdAsync(Guid id)
+        {
+            var employee = await _dbContext.Employees.FindAsync(id);
+            return employee;
+        }
+        public async Task<EmployeeViewModel> GetEmployeeWithDetailsAsync(Guid id)
         {
             var query = from employee in _dbContext.Employees
                         join department in _dbContext.Departments.AsNoTracking() on employee.DepartmentId equals department.Id
                         join position in _dbContext.Positions.AsNoTracking() on employee.PositionId equals position.Id
                         join address in _dbContext.Addresses.AsNoTracking() on employee.AddressId equals address.Id
+                        join user in _dbContext.Users on employee.UserId.ToString() equals user.Id
                         where employee.Id == id
-                        select employee;
+                        select new EmployeeViewModel
+                        {
+                            FullName = user.FullName!,
+                            NetSalary = employee.NetSalary!,
+                            GrossSalary = employee.GrossSalary!,
+                            PhoneNumber = user.PhoneNumber,
+                            Department = department.NameEn,
+                            Position = position.NameEn,
+                            Address = new AddressViewModel
+                            {
+                                City = address.City,
+                                Region = address.Region,
+                                Notes = address.Notes,
+                            }
+                        };
             return await query.FirstOrDefaultAsync() ?? throw new EntityNotFoundException(id, nameof(Employee));
         }
         public async Task<(int totalCount, List<EmployeeViewModel> employees)> GetEmployeesPaginatedAsync(int pageSize, int pageNumber, SortingDirection? sortingDirection, Guid? departmentId = null, string? searchKey = null)
