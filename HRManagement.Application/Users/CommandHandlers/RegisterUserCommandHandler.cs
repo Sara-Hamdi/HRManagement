@@ -42,7 +42,10 @@ namespace HRManagement.Application.Users.CommandHandlers
             await ConfirmRolesExistenceAsync();
 
             await _userManager.AddToRoleAsync(newUser, Roles.Employee);
-            await _userManager.AddToRoleAsync(newUser, request.Role);
+            if (request.Role != null)
+            {
+                await _userManager.AddToRoleAsync(newUser, request.Role);
+            }
 
             request.EmployeeDetails.UserId = newUser.Id;
             var newEmployee = _mapper.Map<CreateEmployeeRequestDto, Employee>(request.EmployeeDetails);
