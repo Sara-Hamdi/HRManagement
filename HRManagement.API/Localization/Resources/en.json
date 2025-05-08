@@ -3,7 +3,12 @@
     "HR:001": "Internal Server Error ",
     "HR:002": "Employee already exists ",
     "HR:003": "Email already exists",
-    "HR:404":  "cannot find an entity {0} with Id = {1}"
+    "HR:004": "Cannot change the password",
+    "HR:005": "Invalid email or password",
+    "HR:404": "Cannot find an entity {0} with Id = {1}",
+
+
+    "Email": "Email"
 
 
   }

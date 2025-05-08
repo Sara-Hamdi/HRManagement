@@ -6,5 +6,7 @@ namespace HRManagement.Application.Users.Interfaces
     {
         Task RegisterUserAsync(RegisterUserRequestDto request);
         Task UpdateUserInfo(UpdateUserInfoRequestDto request);
+        Task ChangeUserPasswordAsync(ChangeUserPasswordRequestDto request);
+        Task<string> LoginUser(LoginUserRequestDto request);
     }
 }

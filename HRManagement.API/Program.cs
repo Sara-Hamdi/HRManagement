@@ -23,10 +23,11 @@ namespace HRManagement.API
                 option.UseSqlServer(builder.Configuration.GetConnectionString("connectionString"));
             });
             builder.Services.AddInfraStructureDependencies();
-            builder.Services.AddApplicationDependencies();
+            builder.Services.AddApplicationDependencies(builder.Configuration);
             builder.Services.AddControllers();
             builder.Services.AddLocalization();
             builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+
             builder.Services.Configure<RequestLocalizationOptions>(options =>
             {
                 var supportedCultures = new[]

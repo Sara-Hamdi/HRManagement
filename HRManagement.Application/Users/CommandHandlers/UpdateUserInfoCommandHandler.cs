@@ -16,6 +16,7 @@ namespace HRManagement.Application.Users.CommandHandlers
         }
         public async Task Handle(UpdateUserInfoRequestDto request, CancellationToken cancellationToken)
         {
+
             var user = await _userManager.FindByIdAsync(request.UserId);
             if (user == null) throw new EntityNotFoundException(Guid.Parse(request.UserId), nameof(User));
             user.Update(request.FirstName, request.LastName, request.Email, request.PhoneNumber);

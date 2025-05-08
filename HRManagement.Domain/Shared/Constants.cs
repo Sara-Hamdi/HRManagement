@@ -7,6 +7,8 @@
             public const string InternalServerError = "HR:001";
             public const string EmployeeAlreadyExists = "HR:002";
             public const string EmailAlreadyExists = "HR:003";
+            public const string PasswordChangingFailed = "HR:004";
+            public const string InvalidEmailOrPassword = "HR:005";
             public const string EntityNotFound = "HR:404";
 
         }

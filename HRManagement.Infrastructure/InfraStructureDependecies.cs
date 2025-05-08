@@ -18,7 +18,7 @@ namespace HRManagement.Infrastructure
             //identity service
             services.AddIdentity<User, IdentityRole>(options =>
             {
-                options.SignIn.RequireConfirmedEmail = true;
+                options.SignIn.RequireConfirmedEmail = false;
                 options.Password.RequiredLength = 10;
                 options.User.RequireUniqueEmail = true;
 

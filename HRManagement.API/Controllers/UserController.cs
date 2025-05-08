@@ -1,7 +1,5 @@
 ﻿using HRManagement.Application.Users.Dtos;
 using HRManagement.Application.Users.Interfaces;
-using HRManagement.Domain.Shared;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRManagement.API.Controllers
@@ -16,7 +14,6 @@ namespace HRManagement.API.Controllers
             _userAppService = userAppService;
         }
         [HttpPost]
-        [Authorize(Roles = Constants.Roles.Admin)]
         public async Task<IActionResult> RegisterUserAsync([FromBody] RegisterUserRequestDto request)
         {
             await _userAppService.RegisterUserAsync(request);
@@ -28,6 +25,18 @@ namespace HRManagement.API.Controllers
             request.UserId = id;
             await _userAppService.UpdateUserInfo(request);
             return Ok();
+        }
+        [HttpPut("change-password/{id}")]
+        public async Task<IActionResult> ChangeUserPasswordAsync(string id, [FromBody] ChangeUserPasswordRequestDto request)
+        {
+            request.UserId = id;
+            await _userAppService.ChangeUserPasswordAsync(request);
+            return Ok();
+        }
+        [HttpPost("login")]
+        public async Task<string> LoginUser([FromBody] LoginUserRequestDto request)
+        {
+            return await _userAppService.LoginUser(request);
         }
     }
 }
