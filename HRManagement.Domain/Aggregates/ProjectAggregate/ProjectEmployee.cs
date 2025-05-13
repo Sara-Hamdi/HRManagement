@@ -1,11 +1,6 @@
-﻿using HRManagement.Domain.Aggregates.EmployeesAggregates;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HRManagement.Domain.Aggregates.EmployeeAggregate;
 
-namespace HRManagement.Domain.Aggregates.Projects
+namespace HRManagement.Domain.Aggregates.ProjectAggregate
 {
     public class ProjectEmployee
     {

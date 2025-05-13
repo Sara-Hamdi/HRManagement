@@ -1,7 +1,7 @@
 ﻿using HRManagement.Domain.Shared;
 using System.ComponentModel.DataAnnotations;
 
-namespace HRManagement.Domain.Aggregates.EmployeesAggregates
+namespace HRManagement.Domain.Aggregates.EmployeeAggregate
 {
     public class Address
     {

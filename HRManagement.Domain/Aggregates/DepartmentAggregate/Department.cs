@@ -1,7 +1,7 @@
-﻿using HRManagement.Domain.Aggregates.EmployeesAggregates;
+﻿using HRManagement.Domain.Aggregates.EmployeeAggregate;
 using HRManagement.Domain.Shared;
 using System.ComponentModel.DataAnnotations;
-namespace HRManagement.Domain.Aggregates.Departments
+namespace HRManagement.Domain.Aggregates.DepartmentAggregate
 {
     public class Department
     {

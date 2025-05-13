@@ -1,13 +1,14 @@
+using HRManagement.API.Configurations;
 using HRManagement.API.CustomMiddlewares;
 using HRManagement.API.Localization;
 using HRManagement.Application;
+using HRManagement.Application.Configurations;
 using HRManagement.Domain;
 using HRManagement.Infrastructure;
 using HRManagement.Infrastructure.Context;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
-using System.Globalization;
+using Microsoft.OpenApi.Models;
 
 namespace HRManagement.API
 {
@@ -23,26 +24,44 @@ namespace HRManagement.API
                 option.UseSqlServer(builder.Configuration.GetConnectionString("connectionString"));
             });
             builder.Services.AddInfraStructureDependencies();
-            builder.Services.AddApplicationDependencies(builder.Configuration);
+            builder.Services.AddApplicationDependencies();
+            builder.Services.AddDomainDependencies();
             builder.Services.AddControllers();
             builder.Services.AddLocalization();
             builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+            builder.Services.Configure<JwtOptions>(
+                builder.Configuration.GetSection(JwtOptions.Jwt));
 
-            builder.Services.Configure<RequestLocalizationOptions>(options =>
-            {
-                var supportedCultures = new[]
-                {
-                    new CultureInfo("en"),
-                    new CultureInfo("ar"),
-                };
-                options.DefaultRequestCulture = new RequestCulture(culture: supportedCultures[0], uiCulture: supportedCultures[0]);
-                options.SupportedCultures = supportedCultures;
-                options.SupportedUICultures = supportedCultures;
-            });
-            builder.Services.AddDomainDependencies();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddJwtAuthentication(builder.Configuration);
+
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                // Add JWT authentication to Swagger UI
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+            {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+            }
+                });
+
+            });
 
             var app = builder.Build();
 
@@ -62,7 +81,7 @@ namespace HRManagement.API
 
             app.UseRequestLocalization(localizationOptions);
             app.UseMiddleware<ExceptionHandlingMiddleware>();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

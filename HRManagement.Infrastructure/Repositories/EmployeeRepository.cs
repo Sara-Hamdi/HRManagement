@@ -1,4 +1,4 @@
-﻿using HRManagement.Domain.Aggregates.EmployeesAggregates;
+﻿using HRManagement.Domain.Aggregates.EmployeeAggregate;
 using HRManagement.Domain.Shared.Exceptions;
 using HRManagement.Domain.ViewModels;
 using HRManagement.Infrastructure.Context;

@@ -1,5 +1,5 @@
 ﻿using HRManagement.Application.Employees.Dtos.RequestDtos;
-using HRManagement.Domain.Aggregates.EmployeesAggregates;
+using HRManagement.Domain.Aggregates.EmployeeAggregate;
 using MediatR;
 
 namespace HRManagement.Application.Employees.CommandHandlers

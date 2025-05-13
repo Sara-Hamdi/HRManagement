@@ -1,4 +1,4 @@
-﻿namespace HRManagement.API.Configurations
+﻿namespace HRManagement.Application.Configurations
 {
     public class JwtOptions
     {
@@ -9,6 +9,6 @@
         public bool ValidateAudience { get; set; }
         public bool ValidateIssuer { get; set; }
         public bool ValidateLifetime { get; set; }
-        public bool ValidateEnsureSigningKey { get; set; }
+        public bool ValidateIssuerSigningKey { get; set; }
     }
 }

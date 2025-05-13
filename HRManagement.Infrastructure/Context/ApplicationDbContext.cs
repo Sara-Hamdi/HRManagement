@@ -1,6 +1,6 @@
-﻿using HRManagement.Domain.Aggregates.Departments;
-using HRManagement.Domain.Aggregates.EmployeesAggregates;
-using HRManagement.Domain.Aggregates.Projects;
+﻿using HRManagement.Domain.Aggregates.DepartmentAggregate;
+using HRManagement.Domain.Aggregates.EmployeeAggregate;
+using HRManagement.Domain.Aggregates.ProjectAggregate;
 using HRManagement.Domain.Aggregates.UserAggregate;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

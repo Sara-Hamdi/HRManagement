@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRManagement.Domain.Aggregates.Projects
+namespace HRManagement.Domain.Aggregates.ProjectAggregate
 {
     public class Project
     {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using HRManagement.Application.Employees.Dtos.RequestDtos;
 using HRManagement.Application.Employees.Dtos.ResponseDtos;
-using HRManagement.Domain.Aggregates.EmployeesAggregates;
+using HRManagement.Domain.Aggregates.EmployeeAggregate;
 using HRManagement.Domain.ViewModels;
 
 namespace HRManagement.Application.MappingProfiles

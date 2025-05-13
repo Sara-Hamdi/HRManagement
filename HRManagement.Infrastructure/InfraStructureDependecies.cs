@@ -1,4 +1,5 @@
-﻿using HRManagement.Domain.Aggregates.EmployeesAggregates;
+﻿using HRManagement.Application.Users.Interfaces;
+using HRManagement.Domain.Aggregates.EmployeeAggregate;
 using HRManagement.Domain.Aggregates.UserAggregate;
 using HRManagement.Domain.ExternalServices;
 using HRManagement.ExternalServices.ReportService;
@@ -15,6 +16,8 @@ namespace HRManagement.Infrastructure
         {
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IReportService, ReportService>();
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+
             //identity service
             services.AddIdentity<User, IdentityRole>(options =>
             {
@@ -23,6 +26,7 @@ namespace HRManagement.Infrastructure
                 options.User.RequireUniqueEmail = true;
 
             }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
             return services;
 
         }

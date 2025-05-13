@@ -1,15 +1,10 @@
-﻿using HRManagement.API.Configurations;
-using HRManagement.Application.Users.Dtos;
+﻿using HRManagement.Application.Users.Dtos;
+using HRManagement.Application.Users.Interfaces;
 using HRManagement.Domain.Aggregates.UserAggregate;
 using HRManagement.Domain.Shared;
 using HRManagement.Domain.Shared.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace HRManagement.Application.Users.CommandHandlers
 {
@@ -17,13 +12,13 @@ namespace HRManagement.Application.Users.CommandHandlers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly JwtOptions _jwtSettings;
+        private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
-        public LoginUserCommandHandler(UserManager<User> userManager, SignInManager<User> signInManager, IOptions<JwtOptions> jwtSettings)
+        public LoginUserCommandHandler(UserManager<User> userManager, SignInManager<User> signInManager, IJwtTokenGenerator jwtTokenGenerator)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _jwtSettings = jwtSettings.Value;
+            _jwtTokenGenerator = jwtTokenGenerator;
         }
 
         public async Task<string> Handle(LoginUserRequestDto request, CancellationToken cancellationToken)
@@ -38,30 +33,10 @@ namespace HRManagement.Application.Users.CommandHandlers
             {
                 throw new BusinessException(Constants.ErrorCodes.InvalidEmailOrPassword);
             }
-            return await GetToken(user);
+            return await _jwtTokenGenerator.GenerateTokenAsync(user);
 
 
         }
-        public async Task<string> GetToken(User user)
-        {
-            var claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.Email,user.Email!),
 
-            };
-            var roles = await _userManager.GetRolesAsync(user);
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
-            var token = new JwtSecurityToken(
-                       issuer: _jwtSettings.Issuer,
-                       audience: _jwtSettings.Audience,
-                       expires: DateTime.Now.AddDays(1),
-                       claims: claims,
-                       signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSettings.Secret)), SecurityAlgorithms.HmacSha256Signature)
-                       );
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
     }
 }

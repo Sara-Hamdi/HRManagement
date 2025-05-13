@@ -1,7 +1,7 @@
 ﻿using HRManagement.Domain.ViewModels;
 using static HRManagement.Domain.Shared.Enums;
 
-namespace HRManagement.Domain.Aggregates.EmployeesAggregates
+namespace HRManagement.Domain.Aggregates.EmployeeAggregate
 {
     public interface IEmployeeRepository
     {

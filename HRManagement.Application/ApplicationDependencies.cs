@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
-using HRManagement.API.Configurations;
 using HRManagement.Application.Employees;
 using HRManagement.Application.Employees.Interfaces;
 using HRManagement.Application.Employees.Queries;
@@ -8,7 +7,6 @@ using HRManagement.Application.Reports;
 using HRManagement.Application.Reports.Interfaces;
 using HRManagement.Application.Users;
 using HRManagement.Application.Users.Interfaces;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -17,8 +15,9 @@ namespace HRManagement.Application
 {
     public static class ApplicationDependencies
     {
-        public static IServiceCollection AddApplicationDependencies(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddApplicationDependencies(this IServiceCollection services)
         {
+
             services.AddTransient<IEmployeeAppService, EmployeeAppService>();
             services.AddTransient<IEmployeeQuery, EmployeeQuery>();
             services.AddMediatR(config => config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
@@ -27,7 +26,6 @@ namespace HRManagement.Application
             services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
             services.AddTransient<IReportAppService, ReportAppService>();
             services.AddTransient<IUserAppService, UserAppService>();
-            services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.Jwt));
 
 
             return services;

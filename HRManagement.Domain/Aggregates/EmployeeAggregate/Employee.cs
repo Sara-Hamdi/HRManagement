@@ -1,7 +1,7 @@
-﻿using HRManagement.Domain.Aggregates.Departments;
+﻿using HRManagement.Domain.Aggregates.DepartmentAggregate;
 using HRManagement.Domain.Aggregates.UserAggregate;
 
-namespace HRManagement.Domain.Aggregates.EmployeesAggregates
+namespace HRManagement.Domain.Aggregates.EmployeeAggregate
 {
     public class Employee
     {
@@ -39,9 +39,9 @@ namespace HRManagement.Domain.Aggregates.EmployeesAggregates
             double? grossSalary)
         {
 
-            DepartmentId = (departmentId != null && departmentId != Guid.Empty) ? (Guid)departmentId : DepartmentId;
+            DepartmentId = departmentId != null && departmentId != Guid.Empty ? (Guid)departmentId : DepartmentId;
             NetSalary = netSalary ?? NetSalary;
-            PositionId = (positionId != null && positionId != Guid.Empty) ? (Guid)positionId : PositionId;
+            PositionId = positionId != null && positionId != Guid.Empty ? (Guid)positionId : PositionId;
             GrossSalary = grossSalary ?? GrossSalary;
             return this;
 

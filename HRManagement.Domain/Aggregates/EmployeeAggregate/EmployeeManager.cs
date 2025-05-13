@@ -1,6 +1,6 @@
 ﻿using HRManagement.Domain.Shared.Exceptions;
 
-namespace HRManagement.Domain.Aggregates.EmployeesAggregates
+namespace HRManagement.Domain.Aggregates.EmployeeAggregate
 {
     public class EmployeeManager
     {

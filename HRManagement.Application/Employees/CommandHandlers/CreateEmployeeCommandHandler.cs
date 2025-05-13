@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using HRManagement.Application.Employees.Dtos.RequestDtos;
-using HRManagement.Domain.Aggregates.EmployeesAggregates;
+using HRManagement.Domain.Aggregates.EmployeeAggregate;
 using HRManagement.Domain.Shared;
 using HRManagement.Domain.Shared.Exceptions;
 using MediatR;

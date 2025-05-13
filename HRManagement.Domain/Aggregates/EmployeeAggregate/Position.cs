@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRManagement.Domain.Aggregates.EmployeesAggregates
+namespace HRManagement.Domain.Aggregates.EmployeeAggregate
 {
     public class Position
     {
