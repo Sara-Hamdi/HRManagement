@@ -7,12 +7,10 @@ namespace HRManagement.API.CustomMiddlewares
     public class ExceptionHandlingMiddleware
     {
         public readonly RequestDelegate _next;
-        public readonly ILogger<ExceptionHandlingMiddleware> _logger;
         public readonly IStringLocalizer<ExceptionHandlingMiddleware> _localizer;
-        public ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger, IStringLocalizer<ExceptionHandlingMiddleware> localizer)
+        public ExceptionHandlingMiddleware(RequestDelegate next, IStringLocalizer<ExceptionHandlingMiddleware> localizer)
         {
             _next = next;
-            _logger = logger;
             _localizer = localizer;
         }
         public async Task InvokeAsync(HttpContext httpContext)
@@ -23,7 +21,6 @@ namespace HRManagement.API.CustomMiddlewares
             }
             catch (BusinessException ex)
             {
-
                 httpContext.Response.ContentType = "application/json";
                 httpContext.Response.StatusCode = 403;
                 var result = new
@@ -37,13 +34,12 @@ namespace HRManagement.API.CustomMiddlewares
             }
             catch (EntityNotFoundException ex)
             {
-
                 httpContext.Response.ContentType = "application/json";
                 httpContext.Response.StatusCode = 404;
                 var result = new
                 {
                     code = EntityNotFoundException.Code,
-                    message = _localizer[Constants.ErrorCodes.EntityNotFound, [ex.EntityName, ex.Id]],
+                    message = _localizer[Constants.ErrorCodes.EntityNotFound, [ex.EntityName, ex.Id]].Value,
 
                 };
 
@@ -53,7 +49,6 @@ namespace HRManagement.API.CustomMiddlewares
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, ex.Message);
                 httpContext.Response.ContentType = "application/json";
                 httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 var result = new

@@ -9,6 +9,7 @@ using HRManagement.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace HRManagement.API
 {
@@ -16,38 +17,48 @@ namespace HRManagement.API
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddDbContext<ApplicationDbContext>(option =>
+
+            Log.Logger = new LoggerConfiguration()
+           .ReadFrom.Configuration(new ConfigurationBuilder()
+           .AddJsonFile("appsettings.json")
+           .Build()).CreateLogger();
+
+            try
             {
-                option.UseSqlServer(builder.Configuration.GetConnectionString("connectionString"));
-            });
-            builder.Services.AddInfraStructureDependencies();
-            builder.Services.AddApplicationDependencies();
-            builder.Services.AddDomainDependencies();
-            builder.Services.AddControllers();
-            builder.Services.AddLocalization();
-            builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
-            builder.Services.Configure<JwtOptions>(
-                builder.Configuration.GetSection(JwtOptions.Jwt));
+                Log.Information("Application starting...");
+                var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddJwtAuthentication(builder.Configuration);
-
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen(c =>
-            {
-                // Add JWT authentication to Swagger UI
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                // Add services to the container.
+                builder.Host.UseSerilog();
+                builder.Services.AddDbContext<ApplicationDbContext>(option =>
                 {
-                    Description = "JWT Authorization header using the Bearer scheme",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
+                    option.UseSqlServer(builder.Configuration.GetConnectionString("connectionString"));
                 });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                builder.Services.AddInfraStructureDependencies();
+                builder.Services.AddApplicationDependencies();
+                builder.Services.AddDomainDependencies();
+                builder.Services.AddControllers();
+                builder.Services.AddLocalization();
+                builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+                builder.Services.Configure<JwtOptions>(
+                    builder.Configuration.GetSection(JwtOptions.Jwt));
+                builder.Services.AddJwtAuthentication(builder.Configuration);
+
+                builder.Services.AddEndpointsApiExplorer();
+                builder.Services.AddSwaggerGen(c =>
                 {
+                    // Add JWT authentication to Swagger UI
+                    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                    {
+                        Description = "JWT Authorization header using the Bearer scheme",
+                        Name = "Authorization",
+                        In = ParameterLocation.Header,
+                        Type = SecuritySchemeType.ApiKey,
+                        Scheme = "Bearer"
+                    });
+                    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
             {
             new OpenApiSecurityScheme
             {
@@ -59,35 +70,46 @@ namespace HRManagement.API
             },
             Array.Empty<string>()
             }
+                    });
+
                 });
 
-            });
+                var app = builder.Build();
 
-            var app = builder.Build();
+                // Configure the HTTP request pipeline.
+                if (app.Environment.IsDevelopment())
+                {
+                    app.UseSwagger();
+                    app.UseSwaggerUI();
+                }
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseHttpsRedirection();
+                var supportedCultures = new[] { "en", "ar" };
+                var localizationOptions = new RequestLocalizationOptions()
+                    .AddSupportedCultures(supportedCultures)
+                    .SetDefaultCulture(supportedCultures[0])
+                    .AddSupportedUICultures(supportedCultures);
+
+                app.UseRequestLocalization(localizationOptions);
+                app.UseMiddleware<ExceptionHandlingMiddleware>();
+                app.UseSerilogRequestLogging();
+                app.UseAuthentication();
+                app.UseAuthorization();
+
+
+                app.MapControllers();
+
+                app.Run();
             }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "The application failed to start.");
 
-            app.UseHttpsRedirection();
-            var supportedCultures = new[] { "en", "ar" };
-            var localizationOptions = new RequestLocalizationOptions()
-                .AddSupportedCultures(supportedCultures)
-                .SetDefaultCulture(supportedCultures[0])
-                .AddSupportedUICultures(supportedCultures);
-
-            app.UseRequestLocalization(localizationOptions);
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-
-            app.MapControllers();
-
-            app.Run();
+            }
+            finally
+            {
+                Log.CloseAndFlushAsync();
+            }
 
         }
     }
