@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Departments\Validators\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HRManagement.Domain\HRManagement.Domain.csproj" />
   </ItemGroup>
 

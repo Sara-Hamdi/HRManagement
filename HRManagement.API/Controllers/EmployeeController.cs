@@ -2,7 +2,7 @@
 using HRManagement.Application.Employees.Dtos.RequestDtos;
 using HRManagement.Application.Employees.Dtos.ResponseDtos;
 using HRManagement.Application.Employees.Interfaces;
-using HRManagement.Domain.Shared;
+using HRManagement.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

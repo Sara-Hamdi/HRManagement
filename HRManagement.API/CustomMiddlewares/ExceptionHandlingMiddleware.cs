@@ -1,5 +1,6 @@
-﻿using HRManagement.Domain.Shared;
-using HRManagement.Domain.Shared.Exceptions;
+﻿
+using HRManagement.Shared;
+using HRManagement.Shared.Exceptions;
 using Microsoft.Extensions.Localization;
 
 namespace HRManagement.API.CustomMiddlewares

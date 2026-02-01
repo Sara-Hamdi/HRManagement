@@ -1,4 +1,4 @@
-﻿using HRManagement.Domain.Shared.Exceptions;
+﻿using HRManagement.Shared.Exceptions;
 
 namespace HRManagement.Domain.Aggregates.EmployeeAggregate
 {

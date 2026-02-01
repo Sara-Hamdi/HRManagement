@@ -1,6 +1,6 @@
 ﻿using HRManagement.Application.Users.Dtos;
 using HRManagement.Domain.Aggregates.UserAggregate;
-using HRManagement.Domain.Shared.Exceptions;
+using HRManagement.Shared.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 

@@ -1,4 +1,4 @@
-﻿namespace HRManagement.Domain.Shared.Exceptions
+﻿namespace HRManagement.Shared.Exceptions
 {
     public class EntityNotFoundException : Exception
     {

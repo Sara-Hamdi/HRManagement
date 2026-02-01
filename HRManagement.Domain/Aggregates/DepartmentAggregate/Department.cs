@@ -1,5 +1,5 @@
 ﻿using HRManagement.Domain.Aggregates.EmployeeAggregate;
-using HRManagement.Domain.Shared;
+using HRManagement.Shared;
 using System.ComponentModel.DataAnnotations;
 namespace HRManagement.Domain.Aggregates.DepartmentAggregate
 {
@@ -14,6 +14,16 @@ namespace HRManagement.Domain.Aggregates.DepartmentAggregate
         public IReadOnlyCollection<Employee> Employees => _employees;
 
         private readonly List<Employee> _employees = new();
+        public Department(Guid id, string nameAr, string nameEn)
+        {
+            Id = id;
+            NameAr = nameAr;
+            NameEn = nameEn;
+        }
+        public void AddEmployee(Employee employee)
+        {
+            _employees.Add(employee);
+        }
 
     }
 }

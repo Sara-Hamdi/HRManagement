@@ -1,4 +1,4 @@
-﻿using HRManagement.Domain.Shared;
+﻿using HRManagement.Shared;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,7 +13,7 @@ namespace HRManagement.Domain.Aggregates.UserAggregate
         [StringLength(Constants.StringLengths.SmallLength)]
         public string LastName { get; private set; }
         [StringLength(Constants.StringLengths.SmallLength)]
-        public string? FullName { get; private set; }
+        public string FullName { get; private set; }
         public bool IsActive { get; private set; }
 
         [Column(TypeName = "smalldatetime")]

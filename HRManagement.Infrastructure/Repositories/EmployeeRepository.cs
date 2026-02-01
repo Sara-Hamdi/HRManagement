@@ -1,9 +1,9 @@
 ﻿using HRManagement.Domain.Aggregates.EmployeeAggregate;
-using HRManagement.Domain.Shared.Exceptions;
 using HRManagement.Domain.ViewModels;
 using HRManagement.Infrastructure.Context;
+using HRManagement.Shared.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using static HRManagement.Domain.Shared.Enums;
+using static HRManagement.Shared.Enums;
 
 namespace HRManagement.Infrastructure.Repositories
 {

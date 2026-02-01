@@ -1,4 +1,4 @@
-﻿using HRManagement.Domain.Shared;
+﻿using HRManagement.Shared;
 using System.ComponentModel.DataAnnotations;
 
 namespace HRManagement.Domain.Aggregates.EmployeeAggregate

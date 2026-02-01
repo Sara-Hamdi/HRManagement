@@ -1,5 +1,5 @@
 ﻿using HRManagement.Domain.ViewModels;
-using static HRManagement.Domain.Shared.Enums;
+using static HRManagement.Shared.Enums;
 
 namespace HRManagement.Domain.Aggregates.EmployeeAggregate
 {

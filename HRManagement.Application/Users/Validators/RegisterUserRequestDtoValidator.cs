@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using HRManagement.Application.Users.Dtos;
-using HRManagement.Domain.Shared;
+using HRManagement.Shared;
 
 namespace HRManagement.Application.Users.Validators
 {

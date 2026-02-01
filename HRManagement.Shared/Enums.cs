@@ -1,4 +1,4 @@
-﻿namespace HRManagement.Domain.Shared
+﻿namespace HRManagement.Shared
 {
     public static class Enums
     {
