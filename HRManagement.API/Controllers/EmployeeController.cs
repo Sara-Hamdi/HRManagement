@@ -1,7 +1,7 @@
 ﻿using HRManagement.Application.Baeses;
-using HRManagement.Application.Employees.Dtos.RequestDtos;
-using HRManagement.Application.Employees.Dtos.ResponseDtos;
-using HRManagement.Application.Employees.Interfaces;
+using HRManagement.Application.Contracts.Employees.Dtos.RequestDtos;
+using HRManagement.Application.Contracts.Employees.Dtos.ResponseDtos;
+using HRManagement.Application.Contracts.Employees.Interfaces;
 using HRManagement.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

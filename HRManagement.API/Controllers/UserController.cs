@@ -1,5 +1,5 @@
-﻿using HRManagement.Application.Users.Dtos;
-using HRManagement.Application.Users.Interfaces;
+﻿using HRManagement.Application.Contracts.Users.Dtos;
+using HRManagement.Application.Contracts.Users.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRManagement.API.Controllers

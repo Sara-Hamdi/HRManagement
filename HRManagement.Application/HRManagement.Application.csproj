@@ -17,11 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Departments\Validators\" />
+    <Folder Include="Features\Departments\Validators\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\HRManagement.Domain\HRManagement.Domain.csproj" />
+    <ProjectReference Include="..\HRManagement.Shared\HRManagement.Shared.csproj" />
   </ItemGroup>
 
 </Project>

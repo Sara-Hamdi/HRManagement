@@ -1,4 +1,5 @@
-﻿using HRManagement.Application.Users.Interfaces;
+﻿using HRManagement.Application.Contracts.Users.Interfaces;
+using HRManagement.Domain.Aggregates.DepartmentAggregate;
 using HRManagement.Domain.Aggregates.EmployeeAggregate;
 using HRManagement.Domain.Aggregates.UserAggregate;
 using HRManagement.Domain.ExternalServices;
@@ -15,6 +16,7 @@ namespace HRManagement.Infrastructure
         public static IServiceCollection AddInfraStructureDependencies(this IServiceCollection services)
         {
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+            services.AddTransient<IDepartmentRepository, DepartmentRepository>();
             services.AddTransient<IReportService, ReportService>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 

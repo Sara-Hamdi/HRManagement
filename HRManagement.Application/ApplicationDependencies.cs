@@ -1,12 +1,18 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
-using HRManagement.Application.Employees;
-using HRManagement.Application.Employees.Interfaces;
-using HRManagement.Application.Employees.Queries;
-using HRManagement.Application.Reports;
-using HRManagement.Application.Reports.Interfaces;
-using HRManagement.Application.Users;
-using HRManagement.Application.Users.Interfaces;
+using HRManagement.Application.Contracts.Departments.Interfaces;
+using HRManagement.Application.Contracts.Employees.Interfaces;
+using HRManagement.Application.Contracts.Roles.Interfaces;
+using HRManagement.Application.Contracts.Users.Interfaces;
+using HRManagement.Application.Features.Departments;
+using HRManagement.Application.Features.Departments.Queries;
+using HRManagement.Application.Features.Employees;
+using HRManagement.Application.Features.Employees.Queries;
+using HRManagement.Application.Features.Reports;
+using HRManagement.Application.Features.Reports.Interfaces;
+using HRManagement.Application.Features.Roles;
+using HRManagement.Application.Features.Roles.Queries;
+using HRManagement.Application.Features.Users;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -26,6 +32,10 @@ namespace HRManagement.Application
             services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
             services.AddTransient<IReportAppService, ReportAppService>();
             services.AddTransient<IUserAppService, UserAppService>();
+            services.AddTransient<IDepartmentAppService, DepartmentAppService>();
+            services.AddTransient<IDepartmentQuery, DepartmentQuery>();
+            services.AddTransient<IRoleQuery, RoleQuery>();
+            services.AddTransient<IRoleAppService, RoleAppService>();
 
 
             return services;

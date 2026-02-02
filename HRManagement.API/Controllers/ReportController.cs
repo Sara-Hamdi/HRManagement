@@ -1,4 +1,4 @@
-﻿using HRManagement.Application.Reports.Interfaces;
+﻿using HRManagement.Application.Features.Reports.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRManagement.API.Controllers

@@ -1,4 +1,5 @@
-﻿using HRManagement.Domain.Aggregates.EmployeeAggregate;
+﻿using HRManagement.Domain.Aggregates.DepartmentAggregate;
+using HRManagement.Domain.Aggregates.EmployeeAggregate;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HRManagement.Domain
@@ -8,6 +9,8 @@ namespace HRManagement.Domain
         public static IServiceCollection AddDomainDependencies(this IServiceCollection services)
         {
             services.AddTransient<EmployeeManager>();
+            services.AddTransient<DepartmentManager>();
+
             return services;
 
         }

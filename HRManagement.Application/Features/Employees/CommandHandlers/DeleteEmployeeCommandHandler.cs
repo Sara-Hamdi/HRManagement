@@ -1,0 +1,21 @@
+﻿using HRManagement.Application.Contracts.Employees.Dtos.RequestDtos;
+using HRManagement.Domain.Aggregates.EmployeeAggregate;
+using MediatR;
+
+namespace HRManagement.Application.Features.Employees.CommandHandlers
+{
+    public class DeleteEmployeeCommandHandler : IRequestHandler<DeleteEmployeeRequestDto, Guid>
+    {
+        private readonly EmployeeManager _employeeManager;
+
+        public DeleteEmployeeCommandHandler(EmployeeManager employeeManager)
+        {
+            _employeeManager = employeeManager;
+        }
+        public async Task<Guid> Handle(DeleteEmployeeRequestDto request, CancellationToken cancellationToken)
+        {
+            return await _employeeManager.DeleteEmployeeAsync(request.Id);
+
+        }
+    }
+}
