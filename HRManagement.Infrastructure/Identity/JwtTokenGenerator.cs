@@ -1,5 +1,5 @@
 ﻿using HRManagement.Application.Configurations;
-using HRManagement.Application.Contracts.Users.Interfaces;
+using HRManagement.Application.Users.Interfaces;
 using HRManagement.Domain.Aggregates.UserAggregate;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;

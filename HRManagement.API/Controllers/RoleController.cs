@@ -1,7 +1,7 @@
 ﻿using HRManagement.Application.Baeses;
-using HRManagement.Application.Contracts.Roles.Dtos.QueryDtos;
-using HRManagement.Application.Contracts.Roles.Dtos.ResponseDtos;
 using HRManagement.Application.Contracts.Roles.Interfaces;
+using HRManagement.Application.Features.Roles.QueryHandlers.Queries;
+using HRManagement.Application.Features.Roles.QueryHandlers.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRManagement.API.Controllers
@@ -16,7 +16,7 @@ namespace HRManagement.API.Controllers
             _roleAppService = roleAppService;
         }
         [HttpGet]
-        public async Task<PaginatedResult<RoleResponseDto>> GetRolesAsync([FromQuery] RoleQueryDto request)
+        public async Task<PaginatedResult<RoleResponseDto>> GetRolesAsync([FromQuery] GetRolesQuery request)
         {
             return await _roleAppService.GetRolesAsync(request);
         }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using HRManagement.Application.Contracts.Employees.Dtos.RequestDtos;
-using HRManagement.Application.Contracts.Employees.Dtos.ResponseDtos;
+using HRManagement.Application.Features.Employees.CommandHandlers.Commands;
+using HRManagement.Application.Features.Employees.QueriesHandlers.Responses;
 using HRManagement.Domain.Aggregates.EmployeeAggregate;
 using HRManagement.Domain.ViewModels;
 
@@ -17,9 +17,9 @@ namespace HRManagement.Application.MappingProfiles
             CreateMap<Employee, EmployeeResponseDto>();
 
             CreateMap<AddressRequestDto, Address>(MemberList.Source);
-            CreateMap<CreateEmployeeRequestDto, Employee>();
+            CreateMap<CreateEmployeeCommand, Employee>();
 
-            CreateMap<UpdateEmployeeRequestDto, Employee>();
+            CreateMap<UpdateEmployeeCommand, Employee>();
 
         }
     }

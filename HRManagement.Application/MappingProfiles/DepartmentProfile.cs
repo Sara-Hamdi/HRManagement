@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using HRManagement.Application.Contracts.Departments.Dtos.ResponseDtos;
+using HRManagement.Application.Features.Departments.QueryHandlers.Responses;
 using HRManagement.Domain.Aggregates.DepartmentAggregate;
 
 namespace HRManagement.Application.MappingProfiles

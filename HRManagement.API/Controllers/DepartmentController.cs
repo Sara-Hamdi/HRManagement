@@ -1,8 +1,8 @@
 ﻿using HRManagement.Application.Baeses;
-using HRManagement.Application.Contracts.Departments.Dtos.QueryDtos;
-using HRManagement.Application.Contracts.Departments.Dtos.RequestDtos;
-using HRManagement.Application.Contracts.Departments.Dtos.ResponseDtos;
-using HRManagement.Application.Contracts.Departments.Interfaces;
+using HRManagement.Application.Departments.Interfaces;
+using HRManagement.Application.Features.Departments.CommandsHandlers.Commands;
+using HRManagement.Application.Features.Departments.QueryHandlers.Queries;
+using HRManagement.Application.Features.Departments.QueryHandlers.Responses;
 using HRManagement.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,13 +20,13 @@ namespace HRManagement.API.Controllers
         }
         [HttpGet]
         [Authorize]
-        public async Task<PaginatedResult<DepartmentResponseDto>> GetDepartmentsAsync([FromQuery] DepartmentQueryDto request)
+        public async Task<PaginatedResult<DepartmentResponseDto>> GetDepartmentsAsync([FromQuery] GetDepartmentsQuery request)
         {
             return await _departmentAppService.GetDepartmentsAsync(request);
         }
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Admin)]
-        public async Task<Guid> CreateDepartmentsAsync([FromBody] CreateDepartmentRequestDto request)
+        public async Task<Guid> CreateDepartmentsAsync([FromBody] CreateDepartmentCommand request)
         {
             return await _departmentAppService.CreateDepartmentAsync(request);
         }

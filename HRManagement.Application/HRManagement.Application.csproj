@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\Departments\Validators\**" />
+    <EmbeddedResource Remove="Features\Departments\Validators\**" />
+    <None Remove="Features\Departments\Validators\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="FluentValidation" Version="11.11.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
@@ -17,12 +23,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Departments\Validators\" />
+    <ProjectReference Include="..\HRManagement.Domain\HRManagement.Domain.csproj" />
+    <ProjectReference Include="..\HRManagement.Shared\HRManagement.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HRManagement.Domain\HRManagement.Domain.csproj" />
-    <ProjectReference Include="..\HRManagement.Shared\HRManagement.Shared.csproj" />
+    <Folder Include="Features\Departments\CommandHandlers\Validators\" />
+    <Folder Include="Abstracts\" />
   </ItemGroup>
 
 </Project>

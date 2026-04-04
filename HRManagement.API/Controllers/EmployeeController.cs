@@ -1,7 +1,8 @@
 ﻿using HRManagement.Application.Baeses;
-using HRManagement.Application.Contracts.Employees.Dtos.RequestDtos;
-using HRManagement.Application.Contracts.Employees.Dtos.ResponseDtos;
 using HRManagement.Application.Contracts.Employees.Interfaces;
+using HRManagement.Application.Features.Employees.CommandHandlers.Commands;
+using HRManagement.Application.Features.Employees.QueriesHandlers.Queries;
+using HRManagement.Application.Features.Employees.QueriesHandlers.Responses;
 using HRManagement.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,28 +20,20 @@ namespace HRManagement.API.Controllers
         }
         [HttpGet]
         [Authorize(Roles = Constants.Roles.Admin + "," + Constants.Roles.TeamLeader)]
-        public async Task<List<EmployeeResponseDto>> GetEmployeesAsync([FromQuery] Guid? departmentId)
+        public async Task<PaginatedResult<EmployeeResponseDto>> GetEmployeesAsync([FromQuery] GetEmployeesQuery request)
         {
-            return await _employeeService.GetEmployeesAsync(departmentId);
-
-        }
-        [HttpGet]
-        [Route("paginated")]
-        [Authorize(Roles = Constants.Roles.Admin + "," + Constants.Roles.TeamLeader)]
-        public async Task<PaginatedResult<EmployeeResponseDto>> GetEmployeesPaginatedAsync([FromQuery] EmployeeQueryDto request)
-        {
-            return await _employeeService.GetEmployeesPaginatedAsync(request);
+            return await _employeeService.GetEmployeesAsync(request);
 
         }
         [HttpGet("{id}")]
         [Authorize]
         public async Task<EmployeeResponseDto> GetEmployeeByIdAsync([FromRoute] Guid id)
         {
-            return await _employeeService.GetEmployeeByIdAsync(id);
+            return await _employeeService.GetEmployeeByIdAsync(new GetEmployeeByIdQuery() { Id = id });
         }
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Admin)]
-        public async Task<Guid> CreateEmployeeAsync([FromBody] CreateEmployeeRequestDto request)
+        public async Task<Guid> CreateEmployeeAsync([FromBody] CreateEmployeeCommand request)
         {
 
             return await _employeeService.CreateEmployee(request);
@@ -48,7 +41,7 @@ namespace HRManagement.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<Guid> UpdateEmployeeAsync([FromRoute] Guid id, [FromBody] UpdateEmployeeRequestDto request)
+        public async Task<Guid> UpdateEmployeeAsync([FromRoute] Guid id, [FromBody] UpdateEmployeeCommand request)
         {
             request.Id = id;
             return await _employeeService.UpdateEmployee(request);
@@ -57,7 +50,7 @@ namespace HRManagement.API.Controllers
         [Authorize(Roles = Constants.Roles.Admin)]
         public async Task<Guid> DeleteEmployeeAsync(Guid id)
         {
-            return await _employeeService.DeleteEmployeeAsync(new DeleteEmployeeRequestDto { Id = id });
+            return await _employeeService.DeleteEmployeeAsync(new DeleteEmployeeCommand { Id = id });
         }
     }
 }

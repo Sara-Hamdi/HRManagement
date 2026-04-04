@@ -1,45 +1,41 @@
 ﻿using HRManagement.Application.Baeses;
-using HRManagement.Application.Contracts.Employees.Dtos.RequestDtos;
-using HRManagement.Application.Contracts.Employees.Dtos.ResponseDtos;
+
 using HRManagement.Application.Contracts.Employees.Interfaces;
+using HRManagement.Application.Features.Employees.CommandHandlers.Commands;
+using HRManagement.Application.Features.Employees.QueriesHandlers.Queries;
+using HRManagement.Application.Features.Employees.QueriesHandlers.Responses;
 using MediatR;
 
 namespace HRManagement.Application.Features.Employees
 {
     public class EmployeeAppService : IEmployeeAppService
     {
-        private readonly IEmployeeQuery _employeeQuery;
         private readonly IMediator _mediator;
-        public EmployeeAppService(IEmployeeQuery employeeQuery, IMediator mediator)
+        public EmployeeAppService(IMediator mediator)
         {
-            _employeeQuery = employeeQuery;
             _mediator = mediator;
         }
-        public async Task<List<EmployeeResponseDto>> GetEmployeesAsync(Guid? departmentId = null)
+        public async Task<PaginatedResult<EmployeeResponseDto>> GetEmployeesAsync(GetEmployeesQuery request)
         {
-            return await _employeeQuery.GetEmployeesAsync(departmentId);
-        }
-        public async Task<PaginatedResult<EmployeeResponseDto>> GetEmployeesPaginatedAsync(EmployeeQueryDto request)
-        {
-            return await _employeeQuery.GetEmployeesPaginatedAsync(request);
+            return await _mediator.Send(request);
 
         }
-        public async Task<EmployeeResponseDto> GetEmployeeByIdAsync(Guid id)
-        {
-            return await _employeeQuery.GetEmployeeByIdAsync(id);
-        }
-
-        public async Task<Guid> CreateEmployee(CreateEmployeeRequestDto request)
+        public async Task<EmployeeResponseDto> GetEmployeeByIdAsync(GetEmployeeByIdQuery request)
         {
             return await _mediator.Send(request);
         }
 
-        public async Task<Guid> UpdateEmployee(UpdateEmployeeRequestDto request)
+        public async Task<Guid> CreateEmployee(CreateEmployeeCommand request)
         {
             return await _mediator.Send(request);
         }
 
-        public Task<Guid> DeleteEmployeeAsync(DeleteEmployeeRequestDto request)
+        public async Task<Guid> UpdateEmployee(UpdateEmployeeCommand request)
+        {
+            return await _mediator.Send(request);
+        }
+
+        public Task<Guid> DeleteEmployeeAsync(DeleteEmployeeCommand request)
         {
             return _mediator.Send(request);
         }

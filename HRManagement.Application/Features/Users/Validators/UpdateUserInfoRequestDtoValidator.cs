@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using HRManagement.Application.Contracts.Users.Dtos;
+using HRManagement.Application.Features.Users.CommandHandlers.Commands;
 
 namespace HRManagement.Application.Features.Users.Validators
 {
-    public class UpdateUserInfoRequestDtoValidator : AbstractValidator<UpdateUserInfoRequestDto>
+    public class UpdateUserInfoRequestDtoValidator : AbstractValidator<UpdateUserInfoCommand>
     {
         public UpdateUserInfoRequestDtoValidator()
         {

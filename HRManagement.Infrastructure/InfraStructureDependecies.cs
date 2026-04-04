@@ -1,4 +1,4 @@
-﻿using HRManagement.Application.Contracts.Users.Interfaces;
+﻿using HRManagement.Application.Users.Interfaces;
 using HRManagement.Domain.Aggregates.DepartmentAggregate;
 using HRManagement.Domain.Aggregates.EmployeeAggregate;
 using HRManagement.Domain.Aggregates.UserAggregate;

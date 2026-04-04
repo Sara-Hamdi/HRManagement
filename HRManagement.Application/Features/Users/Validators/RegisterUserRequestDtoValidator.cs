@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
-using HRManagement.Application.Contracts.Users.Dtos;
+using HRManagement.Application.Features.Users.CommandHandlers.Commands;
 using HRManagement.Shared;
 
 namespace HRManagement.Application.Features.Users.Validators
 {
-    public class RegisterUserRequestDtoValidator : AbstractValidator<RegisterUserRequestDto>
+    public class RegisterUserRequestDtoValidator : AbstractValidator<RegisterUserCommand>
     {
         public RegisterUserRequestDtoValidator()
         {

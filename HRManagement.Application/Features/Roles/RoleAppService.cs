@@ -1,20 +1,21 @@
 ﻿using HRManagement.Application.Baeses;
-using HRManagement.Application.Contracts.Roles.Dtos.QueryDtos;
-using HRManagement.Application.Contracts.Roles.Dtos.ResponseDtos;
 using HRManagement.Application.Contracts.Roles.Interfaces;
+using HRManagement.Application.Features.Roles.QueryHandlers.Queries;
+using HRManagement.Application.Features.Roles.QueryHandlers.Responses;
+using MediatR;
 
 namespace HRManagement.Application.Features.Roles
 {
     public class RoleAppService : IRoleAppService
     {
-        private readonly IRoleQuery _roleQuery;
-        public RoleAppService(IRoleQuery roleQuery)
+        private readonly IMediator _mediator;
+        public RoleAppService(IMediator mediator)
         {
-            _roleQuery = roleQuery;
+            _mediator = mediator;
         }
-        public async Task<PaginatedResult<RoleResponseDto>> GetRolesAsync(RoleQueryDto dto)
+        public async Task<PaginatedResult<RoleResponseDto>> GetRolesAsync(GetRolesQuery request)
         {
-            return await _roleQuery.GetRolesAsync(dto);
+            return await _mediator.Send(request);
         }
     }
 }
